@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
-import "./lib/ISplitMain.sol";
+import "../lib/ISplitMain.sol";
 
-contract Polygon_GasFreeSplit is OwnableUpgradeable {
+contract Polygon_GasFreeSplit_Upgradeable is OwnableUpgradeable {
     // Mapping of contract address to isSplit bool.
     mapping(address => bool) internal splitsAddresses;
     // EIP2771 - Forwarder singleton we accept calls from.
