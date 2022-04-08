@@ -12,6 +12,17 @@ features:
 - `git clone`
 - `npm i`
 - modify `scripts/deploy` with correct initializer info.
+- create `.env` file in root.
+- add env variables (see below).
+
+## Required `.env` variables.
+
+- create `.env` in root of project.
+
+```
+TESTNET_PRIVATE_KEY=
+MAINNET_PRIVATE_KEY=
+```
 
 ## Deploy
 
