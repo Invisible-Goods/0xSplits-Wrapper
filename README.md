@@ -3,6 +3,7 @@
 features:
 
 - gas-free ([EIP 2771](https://eips.ethereum.org/EIPS/eip-2771))
+- - configured for [Biconomy](https://docs.biconomy.io/misc/contract-addresses#eip-2771-contracts)
 - [0xSplits](https://github.com/0xSplits)
 - upgradeable
 - non-upgradeable
@@ -26,9 +27,15 @@ MAINNET_PRIVATE_KEY=
 
 ## Deploy
 
+### Non-Upgradeable
+
 - `npx hardhat run --network mumbai scripts/deploy.js`
 
-## Upgrade
+### Upgradeable
+
+- `npx hardhat run --network mumbai scripts/deploy-upgradeable.js`
+
+## Upgrade (only for upgradeable)
 
 - modify address in `scripts/upgrade`
 - `npx hardhat run --network mumba scripts/upgrade.js`
