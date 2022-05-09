@@ -38,7 +38,8 @@ module.exports = {
       accounts: [`0x${process.env.TESTNET_PRIVATE_KEY}`],
     },
     matic: {
-      url: "https://polygon-rpc.com",
+      gasPrice: 1_000_000_000_000,
+      url: "https://polygon-mainnet.g.alchemy.com/v2/yxbk1A45wun4y8tNAhmLhqFfL4ZVCN4o",
       chaindId: 137,
       accounts: [`0x${process.env.MAINNET_PRIVATE_KEY}`],
     },
