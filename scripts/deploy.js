@@ -1,16 +1,14 @@
-const { ethers, upgrades } = require("hardhat");
+const { ethers } = require("hardhat");
 
 async function main() {
-  const Box = await ethers.getContractFactory("Polygon_GasFreeSplit");
-  const box = await upgrades.deployProxy(
-    Box,
-    ["0x9399bb24dbb5c4b782c70c2969f58716ebbd6a3b"],
-    {
-      initializer: "initialize",
-    }
+  const splitsWrapperContract = await ethers.getContractFactory(
+    "Polygon_GasFreeSplit"
   );
-  await box.deployed();
-  console.log("Box deployed to:", box.address);
+  const splits = await splitsWrapperContract.deploy(
+    "0x9399bb24dbb5c4b782c70c2969f58716ebbd6a3b"
+  );
+  await splits.deployed();
+  console.log("0xSplits Wrapper deployed to:", splits.address);
 }
 
 main()
