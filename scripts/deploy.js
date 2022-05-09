@@ -1,12 +1,14 @@
 const { ethers } = require("hardhat");
+const getTrustedForwarder = require("../utils/getTrustedForwarder");
 
 async function main() {
+  const trustedForwarder = getTrustedForwarder(network.name);
+  console.log("TRUSTED FORWARDER", trustedForwarder);
+
   const splitsWrapperContract = await ethers.getContractFactory(
     "Polygon_GasFreeSplit"
   );
-  const splits = await splitsWrapperContract.deploy(
-    "0x9399bb24dbb5c4b782c70c2969f58716ebbd6a3b"
-  );
+  const splits = await splitsWrapperContract.deploy(trustedForwarder);
   await splits.deployed();
   console.log("0xSplits Wrapper deployed to:", splits.address);
 }
