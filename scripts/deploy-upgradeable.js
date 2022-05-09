@@ -1,18 +1,18 @@
-const { ethers, upgrades } = require("hardhat");
+const { ethers, upgrades, network } = require("hardhat");
+const getTrustedForwarder = require("../utils/getTrustedForwarder");
 
 async function main() {
-  const Box = await ethers.getContractFactory(
+  const trustedForwarder = getTrustedForwarder(network.name);
+  console.log("TRUSTED FORWARDER", trustedForwarder);
+
+  const factory = await ethers.getContractFactory(
     "Polygon_GasFreeSplit_Upgradeable"
   );
-  const box = await upgrades.deployProxy(
-    Box,
-    ["0x9399bb24dbb5c4b782c70c2969f58716ebbd6a3b"],
-    {
-      initializer: "initialize",
-    }
-  );
-  await box.deployed();
-  console.log("Box deployed to:", box.address);
+  const contract = await upgrades.deployProxy(factory, [trustedForwarder], {
+    initializer: "initialize",
+  });
+  await contract.deployed();
+  console.log("0xSplits Wrapper deployed to:", contract.address);
 }
 
 main()
