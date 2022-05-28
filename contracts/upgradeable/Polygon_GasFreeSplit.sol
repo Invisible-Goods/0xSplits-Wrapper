@@ -61,6 +61,15 @@ contract Polygon_GasFreeSplit_Upgradeable is OwnableUpgradeable {
     }
 
     /**
+     * @dev Calls transferControl in 0xSplit hyperstructure contract.
+     * @param split - address of the split to update.
+     * @param newController - address of the newController.
+     */
+    function transferControl(address split, address newController) external {
+        splits.transferControl(split, newController);
+    }
+
+    /**
      * @dev Checks if address is 0xSplit wallet.
      * @param splitAddress - contract addresses to check.
      */
