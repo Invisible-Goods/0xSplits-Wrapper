@@ -194,6 +194,20 @@ contract Polygon_GasFreeSplit_Upgradeable is OwnableUpgradeable {
     }
 
     /**
+     * @dev Calls withdraw in 0xSplit hyperstructure contract.
+     * @param account - address to withdraw on behalf of.
+     * @param withdrawETH - withdraw all ETH if nonzero.
+     * @param tokens - addresses of ERC20s to withdraw.
+     */
+    function withdraw(
+        address account,
+        uint256 withdrawETH,
+        ERC20[] calldata tokens
+    ) external {
+        splits.withdraw(account, withdrawETH, tokens);
+    }
+
+    /**
      * @dev EIP2771 - Checks if address is _trustedForwarder.
      * @param forwarder - address to compare.
      */
