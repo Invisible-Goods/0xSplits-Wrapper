@@ -3,6 +3,8 @@ pragma solidity ^0.8.0;
 import "../lib/ISplitMain.sol";
 
 contract GasFreeBase {
+    // Mapping of contract address to isSplit bool.
+    mapping(address => bool) internal splitsAddresses;
     // EIP2771 - Forwarder singleton we accept calls from.
     address internal _trustedForwarder;
     /// @notice constant to scale uints into percentages (1e6 == 100%)
@@ -29,6 +31,7 @@ contract GasFreeBase {
             distributorFee,
             controller
         );
+        splitsAddresses[newSplit] = true;
         return newSplit;
     }
 
@@ -256,5 +259,13 @@ contract GasFreeBase {
      */
     function versionRecipient() external pure returns (string memory) {
         return "1";
+    }
+
+    /**
+     * @dev Checks if address is 0xSplit wallet.
+     * @param splitAddress - contract addresses to check.
+     */
+    function isSplit(address splitAddress) public view returns (bool) {
+        return splitsAddresses[splitAddress];
     }
 }
