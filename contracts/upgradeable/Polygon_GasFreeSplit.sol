@@ -4,8 +4,6 @@ import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 import "../lib/ISplitMain.sol";
 
 contract Polygon_GasFreeSplit_Upgradeable is OwnableUpgradeable {
-    // Mapping of contract address to isSplit bool.
-    mapping(address => bool) internal splitsAddresses;
     // EIP2771 - Forwarder singleton we accept calls from.
     address private _trustedForwarder;
     /// @notice constant to scale uints into percentages (1e6 == 100%)
@@ -62,7 +60,7 @@ contract Polygon_GasFreeSplit_Upgradeable is OwnableUpgradeable {
 
     /**
      * @dev Calls transferControl in 0xSplit hyperstructure contract.
-     * @param split - address of the split to update.
+     * @param split - address of the split to transfer.
      * @param newController - address of the newController.
      */
     function transferControl(address split, address newController) external {
@@ -70,11 +68,11 @@ contract Polygon_GasFreeSplit_Upgradeable is OwnableUpgradeable {
     }
 
     /**
-     * @dev Checks if address is 0xSplit wallet.
-     * @param splitAddress - contract addresses to check.
+     * @dev Calls transferControl in 0xSplit hyperstructure contract.
+     * @param split - address of the split to cancel transfer.
      */
-    function isSplit(address splitAddress) public view returns (bool) {
-        return splitsAddresses[splitAddress];
+    function cancelControlTransfer(address split) external {
+        splits.cancelControlTransfer(split);
     }
 
     /**
