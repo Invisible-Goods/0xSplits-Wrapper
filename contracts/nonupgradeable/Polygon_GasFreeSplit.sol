@@ -3,12 +3,12 @@ pragma solidity ^0.8.0;
 import "../lib/ISplitMain.sol";
 
 contract Polygon_GasFreeSplit {
-    // Mapping of contract address to isSplit bool.
-    mapping(address => bool) internal splitsAddresses;
     // EIP2771 - Forwarder singleton we accept calls from.
     address private _trustedForwarder;
     /// @notice constant to scale uints into percentages (1e6 == 100%)
     uint256 public constant PERCENTAGE_SCALE = 1e6;
+    // 0xSplits Contract Factory Interface.
+    ISplitMain splits = ISplitMain(0x2ed6c4B5dA6378c7897AC67Ba9e43102Feb694EE);
 
     /**
      * @dev Initializes contract variables.
@@ -31,25 +31,178 @@ contract Polygon_GasFreeSplit {
         uint32 distributorFee,
         address controller
     ) public returns (address) {
-        ISplitMain splits = ISplitMain(
-            0x2ed6c4B5dA6378c7897AC67Ba9e43102Feb694EE
-        );
         address newSplit = splits.createSplit(
             accounts,
             percentAllocations,
             distributorFee,
             controller
         );
-        splitsAddresses[newSplit] = true;
         return newSplit;
     }
 
     /**
-     * @dev Checks if address is 0xSplit wallet.
-     * @param splitAddress - contract addresses to check.
+     * @dev Calls updateSplit in 0xSplit hyperstructure contract.
+     * @param split - address of the split to update.
+     * @param accounts - array of split recipient addresses.
+     * @param percentAllocations - array of percent allocation uint32.
+     * @param distributorFee - fee for whoever distributes funds in the split.
      */
-    function isSplit(address splitAddress) public view returns (bool) {
-        return splitsAddresses[splitAddress];
+    function updateSplit(
+        address split,
+        address[] calldata accounts,
+        uint32[] calldata percentAllocations,
+        uint32 distributorFee
+    ) external {
+        splits.updateSplit(split, accounts, percentAllocations, distributorFee);
+    }
+
+    /**
+     * @dev Calls transferControl in 0xSplit hyperstructure contract.
+     * @param split - address of the split to transfer.
+     * @param newController - address of the newController.
+     */
+    function transferControl(address split, address newController) external {
+        splits.transferControl(split, newController);
+    }
+
+    /**
+     * @dev Calls cancelControlTransfer in 0xSplit hyperstructure contract.
+     * @param split - address of the split to cancel transfer.
+     */
+    function cancelControlTransfer(address split) external {
+        splits.cancelControlTransfer(split);
+    }
+
+    /**
+     * @dev Calls acceptControl in 0xSplit hyperstructure contract.
+     * @param split - address of the split to accept transfer.
+     */
+    function acceptControl(address split) external {
+        splits.acceptControl(split);
+    }
+
+    /**
+     * @dev Calls makeSplitImmutable in 0xSplit hyperstructure contract.
+     * @param split - address of the split to make immutable.
+     */
+    function makeSplitImmutable(address split) external {
+        splits.makeSplitImmutable(split);
+    }
+
+    /**
+     * @dev Calls distributeETH in 0xSplit hyperstructure contract.
+     * @param split - address of the split to distribute.
+     * @param accounts - array of split recipient addresses.
+     * @param percentAllocations - array of percent allocation uint32.
+     * @param distributorFee - fee paid to distributorAddress.
+     * @param distributorAddress - address of distributor.
+     */
+    function distributeETH(
+        address split,
+        address[] calldata accounts,
+        uint32[] calldata percentAllocations,
+        uint32 distributorFee,
+        address distributorAddress
+    ) external {
+        splits.distributeETH(
+            split,
+            accounts,
+            percentAllocations,
+            distributorFee,
+            distributorAddress
+        );
+    }
+
+    /**
+     * @dev Calls updateAndDistributeETH in 0xSplit hyperstructure contract.
+     * @param split - address of the split to update/distribute.
+     * @param accounts - array of split recipient addresses.
+     * @param percentAllocations - array of percent allocation uint32.
+     * @param distributorFee - fee paid to distributorAddress.
+     * @param distributorAddress - address of distributor.
+     */
+    function updateAndDistributeETH(
+        address split,
+        address[] calldata accounts,
+        uint32[] calldata percentAllocations,
+        uint32 distributorFee,
+        address distributorAddress
+    ) external {
+        splits.updateAndDistributeETH(
+            split,
+            accounts,
+            percentAllocations,
+            distributorFee,
+            distributorAddress
+        );
+    }
+
+    /**
+     * @dev Calls distributeERC20 in 0xSplit hyperstructure contract.
+     * @param split - address of the split to distribute.
+     * @param token - ERC20 token to distribute.
+     * @param accounts - array of split recipient addresses.
+     * @param percentAllocations - array of percent allocation uint32.
+     * @param distributorFee - fee paid to distributorAddress.
+     * @param distributorAddress - address of distributor.
+     */
+    function distributeERC20(
+        address split,
+        ERC20 token,
+        address[] calldata accounts,
+        uint32[] calldata percentAllocations,
+        uint32 distributorFee,
+        address distributorAddress
+    ) external {
+        splits.distributeERC20(
+            split,
+            token,
+            accounts,
+            percentAllocations,
+            distributorFee,
+            distributorAddress
+        );
+    }
+
+    /**
+     * @dev Calls updateAndDistributeERC20 in 0xSplit hyperstructure contract.
+     * @param split - address of the split to update/distribute.
+     * @param token - ERC20 token to distribute.
+     * @param accounts - array of split recipient addresses.
+     * @param percentAllocations - array of percent allocation uint32.
+     * @param distributorFee - fee paid to distributorAddress.
+     * @param distributorAddress - address of distributor.
+     */
+    function updateAndDistributeERC20(
+        address split,
+        ERC20 token,
+        address[] calldata accounts,
+        uint32[] calldata percentAllocations,
+        uint32 distributorFee,
+        address distributorAddress
+    ) external {
+        splits.updateAndDistributeERC20(
+            split,
+            token,
+            accounts,
+            percentAllocations,
+            distributorFee,
+            distributorAddress
+        );
+    }
+
+    /**
+     * @dev Calls withdraw in 0xSplit hyperstructure contract.
+     * @param account - address to withdraw on behalf of.
+     * @param withdrawETH - withdraw all ETH if nonzero.
+     * @param tokens - addresses of ERC20s to withdraw.
+     */
+    function withdraw(
+        address account,
+        uint256 withdrawETH,
+        ERC20[] calldata tokens
+    ) external {
+        splits.withdraw(account, withdrawETH, tokens);
     }
 
     /**
