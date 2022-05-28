@@ -8,6 +8,11 @@ features:
 - upgradeable
 - non-upgradeable
 
+## Deployments
+
+- MATIC: `0x67D67088983B4097241E588d5Ab402186ADEc9D9`
+- Mumbai (testnet): `0x84512cD7d962C031F9717f188eF56d71d3A335D9`
+
 ## Setup
 
 - `git clone`

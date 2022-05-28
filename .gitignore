@@ -3,6 +3,7 @@
 
 # cache
 cache/
+artifacts/
 
 # node_modules
 node_modules/
