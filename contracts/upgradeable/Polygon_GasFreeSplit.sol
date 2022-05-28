@@ -167,6 +167,33 @@ contract Polygon_GasFreeSplit_Upgradeable is OwnableUpgradeable {
     }
 
     /**
+     * @dev Calls updateAndDistributeERC20 in 0xSplit hyperstructure contract.
+     * @param split - address of the split to update/distribute.
+     * @param token - ERC20 token to distribute.
+     * @param accounts - array of split recipient addresses.
+     * @param percentAllocations - array of percent allocation uint32.
+     * @param distributorFee - fee paid to distributorAddress.
+     * @param distributorAddress - address of distributor.
+     */
+    function updateAndDistributeERC20(
+        address split,
+        ERC20 token,
+        address[] calldata accounts,
+        uint32[] calldata percentAllocations,
+        uint32 distributorFee,
+        address distributorAddress
+    ) external {
+        splits.updateAndDistributeERC20(
+            split,
+            token,
+            accounts,
+            percentAllocations,
+            distributorFee,
+            distributorAddress
+        );
+    }
+
+    /**
      * @dev EIP2771 - Checks if address is _trustedForwarder.
      * @param forwarder - address to compare.
      */
