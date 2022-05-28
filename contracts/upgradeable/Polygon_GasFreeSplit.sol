@@ -12,6 +12,7 @@ contract Polygon_GasFreeSplit_Upgradeable is OwnableUpgradeable, GasFreeBase {
     function initialize(address _trustedForwarderAddress) public initializer {
         __Ownable_init();
         _trustedForwarder = _trustedForwarderAddress;
+        splits = ISplitMain(0x2ed6c4B5dA6378c7897AC67Ba9e43102Feb694EE);
     }
 
     /**

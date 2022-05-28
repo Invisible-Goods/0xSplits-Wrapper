@@ -8,7 +8,7 @@ contract GasFreeBase {
     /// @notice constant to scale uints into percentages (1e6 == 100%)
     uint256 public constant PERCENTAGE_SCALE = 1e6;
     // 0xSplits Contract Factory Interface.
-    ISplitMain splits = ISplitMain(0x2ed6c4B5dA6378c7897AC67Ba9e43102Feb694EE);
+    ISplitMain internal splits;
 
     /**
      * @dev Calls createSplit in 0xSplit hyperstructure contract.
