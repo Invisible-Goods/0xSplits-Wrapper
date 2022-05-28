@@ -116,6 +116,30 @@ contract Polygon_GasFreeSplit_Upgradeable is OwnableUpgradeable {
     }
 
     /**
+     * @dev Calls updateAndDistributeETH in 0xSplit hyperstructure contract.
+     * @param split - address of the split to update/distribute.
+     * @param accounts - array of split recipient addresses.
+     * @param percentAllocations - array of percent allocation uint32.
+     * @param distributorFee - fee paid to distributorAddress.
+     * @param distributorAddress - address of distributor.
+     */
+    function updateAndDistributeETH(
+        address split,
+        address[] calldata accounts,
+        uint32[] calldata percentAllocations,
+        uint32 distributorFee,
+        address distributorAddress
+    ) external {
+        splits.updateAndDistributeETH(
+            split,
+            accounts,
+            percentAllocations,
+            distributorFee,
+            distributorAddress
+        );
+    }
+
+    /**
      * @dev EIP2771 - Checks if address is _trustedForwarder.
      * @param forwarder - address to compare.
      */
