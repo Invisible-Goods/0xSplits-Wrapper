@@ -33,7 +33,7 @@ module.exports = {
       chainId: 31337,
     },
     mumbai: {
-      url: "https://rpc-mumbai.maticvigil.com",
+      url: "https://matic-mumbai.chainstacklabs.com	",
       chainId: 80001,
       accounts: [`0x${process.env.TESTNET_PRIVATE_KEY}`],
     },
