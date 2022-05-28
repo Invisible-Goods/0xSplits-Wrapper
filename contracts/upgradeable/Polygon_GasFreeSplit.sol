@@ -84,6 +84,14 @@ contract Polygon_GasFreeSplit_Upgradeable is OwnableUpgradeable {
     }
 
     /**
+     * @dev Calls makeSplitImmutable in 0xSplit hyperstructure contract.
+     * @param split - address of the split to make immutable.
+     */
+    function makeSplitImmutable(address split) external {
+        splits.makeSplitImmutable(split);
+    }
+
+    /**
      * @dev EIP2771 - Checks if address is _trustedForwarder.
      * @param forwarder - address to compare.
      */
