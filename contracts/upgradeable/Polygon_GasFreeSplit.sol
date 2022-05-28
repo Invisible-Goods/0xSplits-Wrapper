@@ -68,11 +68,19 @@ contract Polygon_GasFreeSplit_Upgradeable is OwnableUpgradeable {
     }
 
     /**
-     * @dev Calls transferControl in 0xSplit hyperstructure contract.
+     * @dev Calls cancelControlTransfer in 0xSplit hyperstructure contract.
      * @param split - address of the split to cancel transfer.
      */
     function cancelControlTransfer(address split) external {
         splits.cancelControlTransfer(split);
+    }
+
+    /**
+     * @dev Calls acceptControl in 0xSplit hyperstructure contract.
+     * @param split - address of the split to accept transfer.
+     */
+    function acceptControl(address split) external {
+        splits.acceptControl(split);
     }
 
     /**
