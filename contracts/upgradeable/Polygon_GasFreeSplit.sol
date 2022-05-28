@@ -10,6 +10,8 @@ contract Polygon_GasFreeSplit_Upgradeable is OwnableUpgradeable {
     address private _trustedForwarder;
     /// @notice constant to scale uints into percentages (1e6 == 100%)
     uint256 public constant PERCENTAGE_SCALE = 1e6;
+    // 0xSplits Contract Factory Interface.
+    ISplitMain splits = ISplitMain(0x2ed6c4B5dA6378c7897AC67Ba9e43102Feb694EE);
 
     /**
      * @dev Initializes contract variables.
@@ -33,17 +35,29 @@ contract Polygon_GasFreeSplit_Upgradeable is OwnableUpgradeable {
         uint32 distributorFee,
         address controller
     ) public returns (address) {
-        ISplitMain splits = ISplitMain(
-            0x2ed6c4B5dA6378c7897AC67Ba9e43102Feb694EE
-        );
         address newSplit = splits.createSplit(
             accounts,
             percentAllocations,
             distributorFee,
             controller
         );
-        splitsAddresses[newSplit] = true;
         return newSplit;
+    }
+
+    /**
+     * @dev Calls updateSplit in 0xSplit hyperstructure contract.
+     * @param split - address of the split to update.
+     * @param accounts - array of split recipient addresses.
+     * @param percentAllocations - array of percent allocation uint32.
+     * @param distributorFee - fee for whoever distributes funds in the split.
+     */
+    function updateSplit(
+        address split,
+        address[] calldata accounts,
+        uint32[] calldata percentAllocations,
+        uint32 distributorFee
+    ) external {
+        splits.updateSplit(split, accounts, percentAllocations, distributorFee);
     }
 
     /**
