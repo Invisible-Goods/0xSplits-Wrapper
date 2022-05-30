@@ -1,6 +1,16 @@
+
 # 0xSplits Wrapper
 
-features:
+
+## Safety
+```diff
+- WARNING: these contracts are unaudited
+```
+This is  **experimental software**  and is provided on an "as is" and "as available" basis.
+
+We  **do not give any warranties**  and  **will not be liable for any loss**  incurred through any use of this codebase.
+
+## Features:
 
 - gas-free ([EIP 2771](https://eips.ethereum.org/EIPS/eip-2771))
 - - configured for [Biconomy](https://docs.biconomy.io/misc/contract-addresses#eip-2771-contracts)
