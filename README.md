@@ -1,14 +1,15 @@
 
+
 # 0xSplits Wrapper
 
 
 ## Safety
-```diff
-- WARNING: these contracts are unaudited
-```
-This is  **experimental software**  and is provided on an "as is" and "as available" basis.
+```diff  
+- WARNING: these contracts are unaudited  
+```  
+This is  **experimental software** and is provided on an "as is" and "as available" basis.
 
-We  **do not give any warranties**  and  **will not be liable for any loss**  incurred through any use of this codebase.
+We  **do not give any warranties** and  **will not be liable for any loss** incurred through any use of this codebase.
 
 ## Features:
 
@@ -35,10 +36,10 @@ We  **do not give any warranties**  and  **will not be liable for any loss**  in
 
 - create `.env` in root of project.
 
-```
-TESTNET_PRIVATE_KEY=
-MAINNET_PRIVATE_KEY=
-```
+```  
+TESTNET_PRIVATE_KEY=  
+MAINNET_PRIVATE_KEY=  
+```  
 
 ## Deploy
 
